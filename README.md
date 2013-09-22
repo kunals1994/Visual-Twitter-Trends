@@ -3,4 +3,6 @@ and their respective trending hashtags. The top ten hashtags from each city is d
 cities are excluded as a result of limitations from the Twitter API. 
 
 To run the application, simply execute the twitterData.py file. This package has a dependancy on the 
-twython module. Everything else is enclosed. 
+twython module. Everything else is enclosed.
+
+Uses the Ubigraph library to display the 3D model.  
