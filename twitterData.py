@@ -12,7 +12,7 @@ failures = 0
 def changeAccount():
 	acct = currAccount
 	global currAccount
-	currAccount = currAccount + 1
+	currAccount = acct + 1
 	global nextAccount
 	nextAccount = accounts[currAccount]
 	global twitter
@@ -28,6 +28,10 @@ def getTrends(ident):
 	if(perform == 0):
 		if(counter >15):
 			changeAccount()
+			global counter
+			counter = 0
+		global counter
+		counter = counter +1
 		try:
 			return twitter.get_place_trends(id = ident)[0]["trends"]
 		except:
