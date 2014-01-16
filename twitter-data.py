@@ -9,7 +9,6 @@ twitter = Twython (
 	#Twitter Credentials
 )
 
-
 class Node():
 	def __init__(self, node_type):
 		self.children = {}
@@ -35,7 +34,6 @@ def main(args):
 				world.children[country] = Node (node_type = "country")
 
 			add_to_graph(curr_city, world.children[country], all_trends)
-
 
 	os.system("bin/ubigraph_server &")
 
@@ -82,12 +80,11 @@ def add_to_graph(city, country, all_displayed_trends):
 
 		city_node.children[trend_name] = all_displayed_trends[trend_name]
 
-
 def get_trends(place):
-	return twitter.get_place_trends(id = place["woeid"])[0]["trends"]
-	
-
+	try:
+		return twitter.get_place_trends(id = place["woeid"])[0]["trends"]
+	except:
+		print "problem with twitter..."
+		return []
 
 main(sys.argv)
-
-
