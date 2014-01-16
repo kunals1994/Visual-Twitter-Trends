@@ -17,9 +17,13 @@ class Node():
 
 def main(args):
 	world = Node (node_type = "world")
-	#Pickle/Save to disk in future to save time?
+
+
+	
 	cities = twitter.get_available_trends()
 
+
+	#No longer analyzing
 	for curr_city in cities:
 		country = curr_city["country"]
 		name = curr_city["name"]
