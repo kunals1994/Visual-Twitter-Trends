@@ -2,7 +2,7 @@ Examine relationships between cities and what's trending on twitter.
 
 Run twitter-data.py, and pass names of cities as command line arguments. Cities with many common trends will tend to be closer together. 
 
-Acceptable city names (no spaces): 
+City names (_ instead of spaces ): 
 
 Winnipeg,Canada
 Ottawa,Canada

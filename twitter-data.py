@@ -14,25 +14,27 @@ class Node():
 	def __init__(self, node_type):
 		self.children = {}
 		self.type = node_type
+		self.id = 0
 
 def main(args):
 	world = Node (node_type = "world")
 
-
+	all_trends = {}
 	
 	cities = twitter.get_available_trends()
 
-
-	#No longer analyzing
+	#Look up by city,country instead of woeid?
 	for curr_city in cities:
 		country = curr_city["country"]
 		name = curr_city["name"]
 
-		if( (name+","+country) in args):
+		args_name = (name+","+country).replace(" ", "_")
+
+		if( args_name in args):
 			if(country not in world.children):
 				world.children[country] = Node (node_type = "country")
 
-			add_to_graph(curr_city, world.children[country])
+			add_to_graph(curr_city, world.children[country], all_trends)
 
 
 	os.system("bin/ubigraph_server &")
@@ -42,14 +44,20 @@ def main(args):
 	server_url = 'http://127.0.0.1:20738/RPC2'
 	server = xmlrpclib.Server(server_url)
 	G = server.ubigraph
-
 	display(world, G, None, "world")
 
 def display(node, ubi, parent, name):
 
-	curr_vertex = ubi.new_vertex()
-	ubi.set_vertex_attribute(curr_vertex, 'shape', 'sphere')
-	ubi.set_vertex_attribute(curr_vertex, 'label', name)
+	curr_vertex = 0
+
+	if(node.id == 0):
+		curr_vertex = ubi.new_vertex()
+		ubi.set_vertex_attribute(curr_vertex, 'shape', 'sphere')
+		ubi.set_vertex_attribute(curr_vertex, 'label', name)
+		node.id = curr_vertex
+
+	else:
+		curr_vertex = node.id
 
 	if (node.type == "world" or node.type == "trend"):
 		ubi.set_vertex_attribute(curr_vertex, 'shape', 'none')
@@ -63,12 +71,17 @@ def display(node, ubi, parent, name):
 	for child in node.children:
 		display (node.children[child], ubi, curr_vertex, child)
 
-def add_to_graph(city, country):
+def add_to_graph(city, country, all_displayed_trends):
 	name = city ["name"]
 	city_node = Node (node_type = "city")
 	country.children[name] = city_node
 	for trend in get_trends(city):
-		city_node.children[trend["name"]] = Node(node_type = "trend")
+		trend_name = (trend["name"].lower()).replace(" ", "")
+		if(trend_name not in all_displayed_trends):
+			all_displayed_trends [trend_name] = Node(node_type = "trend")			
+
+		city_node.children[trend_name] = all_displayed_trends[trend_name]
+
 
 def get_trends(place):
 	return twitter.get_place_trends(id = place["woeid"])[0]["trends"]
