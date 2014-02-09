@@ -2,6 +2,13 @@ Examine relationships between cities and what's trending on twitter.
 
 Run twitter-data.py, and pass names of cities as command line arguments. Cities with many common trends will tend to be closer together. 
 
+
+Try : 
+
+$ python twitter-data.py Mumbai,India Delhi,India New_York,United_States Philadelphia,United_States San_Francisco,United_States San_Jose,United_States
+
+
+
 City names:
 
 
