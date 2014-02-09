@@ -29,7 +29,7 @@ def main(args):
 
 		args_name = (name+","+country).replace(" ", "_")
 
-		if( args_name in args):
+		if(args_name in args):
 			if(country not in world.children):
 				world.children[country] = Node (node_type = "country")
 
