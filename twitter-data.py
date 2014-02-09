@@ -7,6 +7,10 @@ import os
 
 twitter = Twython (
 	#Twitter Credentials
+	app_key = 'kqBFSvxPIWruZAgKetyzhQ',
+ 	app_secret = 'CoF5NioQgztQRqiqX1jPth63n297FVig3l6ZMc',
+ 	oauth_token = '1892421098-dRvozyLCEM1QQ4VGtU2oxoLOvdGkmzmJb4wHX71',
+ 	oauth_token_secret = 'OsJeQT6AacIyhUFB9ffXkIWNLYZtcLQpklQ0TW108Q'
 )
 
 class Node():
